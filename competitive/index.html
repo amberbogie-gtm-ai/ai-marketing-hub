@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Competitive Intelligence · AI Marketing Hub</title>
+  <style>
+    :root {
+      --navy: #1B2A4A; --navy-light: #243660; --amber: #E8903A; --amber-light: #F5A84E;
+      --bg: #F4F6FB; --white: #ffffff; --text: #1A1A2A; --text-muted: #6B7280;
+      --border: #E2E8F0; --radius: 12px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+    header { background: var(--navy); padding: 0 2rem; }
+    .header-inner { max-width: 900px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 64px; }
+    .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .logo-dot { width: 10px; height: 10px; background: var(--amber); border-radius: 50%; }
+    .logo-text { color: #fff; font-size: 0.95rem; font-weight: 600; }
+    .back-link { color: rgba(255,255,255,0.6); font-size: 0.82rem; text-decoration: none; }
+    .back-link:hover { color: var(--amber); }
+    .hero { background: var(--navy); padding: 48px 2rem 64px; }
+    .hero-inner { max-width: 900px; margin: 0 auto; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 8px; background: rgba(232,144,58,0.12); color: var(--amber); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 5px 12px; border-radius: 20px; margin-bottom: 18px; }
+    .hero h1 { color: #fff; font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 700; margin-bottom: 12px; }
+    .hero p { color: rgba(255,255,255,0.62); font-size: 1rem; line-height: 1.65; max-width: 560px; }
+    .wave { background: var(--navy); line-height: 0; }
+    .wave svg { display: block; width: 100%; }
+    main { max-width: 900px; margin: 0 auto; padding: 48px 2rem 80px; }
+    .card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px; margin-bottom: 28px; box-shadow: 0 2px 12px rgba(27,42,74,0.07); }
+    .card-heading { font-size: 1.05rem; font-weight: 700; color: var(--navy); margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+    .card-heading .icon { font-size: 1.2rem; }
+    .steps { display: flex; flex-direction: column; gap: 16px; }
+    .step { display: flex; gap: 14px; align-items: flex-start; }
+    .step-num { min-width: 28px; height: 28px; border-radius: 50%; background: var(--navy); color: #fff; font-size: 0.78rem; font-weight: 700; display: flex; align-items: center; justify-content: center; margin-top: 2px; }
+    .step-body { font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; }
+    .step-body strong { color: var(--text); }
+    .use-cases { display: flex; flex-wrap: wrap; gap: 8px; }
+    .use-case { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 6px 14px; font-size: 0.82rem; color: var(--navy); font-weight: 500; }
+    .prompt-box { position: relative; }
+    .prompt-label { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 10px; }
+    .prompt-text { background: #0F1623; color: #E2E8F0; font-family: 'Menlo', 'Monaco', 'Courier New', monospace; font-size: 0.82rem; line-height: 1.7; padding: 24px; border-radius: 10px; white-space: pre-wrap; word-break: break-word; border: 1px solid rgba(255,255,255,0.06); }
+    .placeholder { color: var(--amber-light); font-style: italic; }
+    .copy-btn { position: absolute; top: 38px; right: 12px; background: rgba(232,144,58,0.15); color: var(--amber); border: 1px solid rgba(232,144,58,0.3); border-radius: 8px; padding: 6px 14px; font-size: 0.78rem; font-weight: 600; cursor: pointer; transition: background 0.2s; }
+    .copy-btn:hover { background: rgba(232,144,58,0.3); }
+    .tips { display: flex; flex-direction: column; gap: 12px; }
+    .tip { display: flex; gap: 10px; align-items: flex-start; font-size: 0.88rem; color: var(--text-muted); line-height: 1.55; }
+    .tip-icon { font-size: 1rem; margin-top: 1px; }
+    footer { background: var(--navy); text-align: center; padding: 28px; color: rgba(255,255,255,0.4); font-size: 0.82rem; }
+    footer a { color: var(--amber); text-decoration: none; }
+    @media (max-width: 640px) { main { padding: 32px 1.25rem 60px; } .card { padding: 22px; } }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <a class="logo" href="../index.html"><div class="logo-dot"></div><span class="logo-text">Amber Bogie Marketing</span></a>
+      <a class="back-link" href="../index.html">← Back to Hub</a>
+    </div>
+  </header>
+
+  <div class="hero">
+    <div class="hero-inner">
+      <div class="eyebrow">⚔️ Intel Tool</div>
+      <h1>Competitive Intelligence</h1>
+      <p>Analyze competitor positioning, surface gaps, and produce sales-ready battlecards — without spending hours on manual research.</p>
+    </div>
+  </div>
+
+  <div class="wave">
+    <svg viewBox="0 0 1440 40" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <path d="M0,40 C360,0 1080,0 1440,40 L1440,0 L0,0 Z" fill="#1B2A4A"/>
+    </svg>
+  </div>
+
+  <main>
+
+    <div class="card">
+      <div class="card-heading"><span class="icon">🎯</span> What this tool does</div>
+      <p style="font-size:0.92rem;color:var(--text-muted);line-height:1.7;margin-bottom:20px;">This prompt generates a structured competitive battlecard — a one-page cheat sheet that helps your sales team win deals against a specific competitor. It covers positioning, strengths, weaknesses, common objections, and killer questions to ask.</p>
+      <div class="use-cases">
+        <span class="use-case">Sales battlecards</span>
+        <span class="use-case">Positioning analysis</span>
+        <span class="use-case">Win/loss framing</span>
+        <span class="use-case">Objection handling</span>
+        <span class="use-case">Messaging gap analysis</span>
+        <span class="use-case">Competitive landscape overview</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-heading"><span class="icon">⚙️</span> How to use it</div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body"><strong>Copy the prompt</strong> using the button in the prompt box.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body"><strong>Fill in the brackets.</strong> Provide your company details and the competitor you want to analyze. The more detail you include, the more precise the output.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body"><strong>Paste into Claude.</strong> Claude will generate a full battlecard with structured sections.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-body"><strong>Ask Claude to dig deeper.</strong> Try: <em>"Add a trap question for when the prospect mentions [feature]"</em> or <em>"Reframe the weaknesses as opportunities."</em></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-heading"><span class="icon">📋</span> Your Prompt — Copy &amp; Paste</div>
+      <div class="prompt-box">
+        <div class="prompt-label">Ready-to-use prompt</div>
+        <button class="copy-btn" onclick="copyPrompt()">Copy</button>
+        <div class="prompt-text" id="prompt">You are a B2B competitive intelligence analyst. Generate a complete, sales-ready battlecard for the following comparison.
+
+OUR COMPANY:
+- Company: <span class="placeholder">[Your company name]</span>
+- Product/Service: <span class="placeholder">[What you sell — one sentence]</span>
+- Core differentiators: <span class="placeholder">[Top 2–3 things that make you unique]</span>
+- Ideal customer: <span class="placeholder">[Job title + company type + size]</span>
+- Price positioning: <span class="placeholder">[e.g., premium / mid-market / value]</span>
+
+COMPETITOR:
+- Competitor name: <span class="placeholder">[Competitor company name]</span>
+- Their website: <span class="placeholder">[URL if known]</span>
+- What they're known for: <span class="placeholder">[Their positioning or flagship feature]</span>
+- Where they typically win: <span class="placeholder">[Situations or buyer types where they beat us]</span>
+- Known weaknesses: <span class="placeholder">[Any known gaps, complaints, or limitations]</span>
+
+BATTLECARD OUTPUT — Please structure your response with these exact sections:
+
+1. COMPETITOR SNAPSHOT — 2–3 sentence summary of who they are and how they position
+2. WHERE THEY WIN — 3 bullet points on when/why they beat us
+3. WHERE WE WIN — 3 bullet points on when/why we beat them
+4. LANDMINES — 2 "trap questions" reps can ask to expose competitor weaknesses
+5. OBJECTION HANDLERS — Top 3 objections when a prospect prefers the competitor, with our rebuttal for each
+6. ONE-LINE POSITIONING STATEMENT — A single sentence reps can say when asked "how are you different from [competitor]?"</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-heading"><span class="icon">💡</span> Pro tips for better results</div>
+      <div class="tips">
+        <div class="tip"><span class="tip-icon">🌐</span> Paste the competitor's homepage or pricing page copy into the prompt — Claude can analyze their own language against yours.</div>
+        <div class="tip"><span class="tip-icon">🔁</span> Run this prompt once per competitor. Then keep a folder of battlecards — one file per competitor — and update quarterly.</div>
+        <div class="tip"><span class="tip-icon">🗣️</span> Ask Claude: <em>"Rewrite this for a sales rep who has 30 seconds to explain the difference."</em> Great for pocket cards.</div>
+        <div class="tip"><span class="tip-icon">📢</span> Add real quotes from G2 or Gartner reviews in the "Known weaknesses" field to ground the battlecard in buyer sentiment.</div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer>
+    <a href="../index.html">← Back to AI Marketing Hub</a> &nbsp;·&nbsp; Built by <a href="https://www.amberbogie.com" target="_blank">Amber Bogie</a>
+  </footer>
+
+  <script>
+    function copyPrompt() {
+      const el = document.getElementById('prompt');
+      navigator.clipboard.writeText(el.innerText).then(() => {
+        const btn = document.querySelector('.copy-btn');
+        btn.textContent = 'Copied!';
+        setTimeout(() => btn.textContent = 'Copy', 2000);
+      });
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>[Client] AI Marketing Hub</title>
+  <style>
+    :root {
+      --navy: #1B2A4A;
+      --navy-light: #243660;
+      --amber: #E8903A;
+      --amber-light: #F5A84E;
+      --bg: #F4F6FB;
+      --white: #ffffff;
+      --text: #1A1A2A;
+      --text-muted: #6B7280;
+      --border: #E2E8F0;
+      --card-shadow: 0 2px 12px rgba(27,42,74,0.08);
+      --card-shadow-hover: 0 8px 32px rgba(27,42,74,0.16);
+      --radius: 12px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ── HEADER ── */
+    header {
+      background: var(--navy);
+      padding: 0 2rem;
+    }
+
+    .header-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .logo-dot {
+      width: 10px;
+      height: 10px;
+      background: var(--amber);
+      border-radius: 50%;
+    }
+
+    .logo-text {
+      color: var(--white);
+      font-size: 0.95rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
+    .header-badge {
+      background: rgba(232,144,58,0.15);
+      color: var(--amber-light);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 20px;
+      border: 1px solid rgba(232,144,58,0.3);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      background: var(--navy);
+      padding: 56px 2rem 72px;
+      text-align: center;
+    }
+
+    .hero-eyebrow {
+      display: inline-block;
+      background: rgba(232,144,58,0.12);
+      color: var(--amber);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 6px 16px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      color: var(--white);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      line-height: 1.15;
+      max-width: 700px;
+      margin: 0 auto 16px;
+    }
+
+    .hero h1 span {
+      color: var(--amber);
+    }
+
+    .hero p {
+      color: rgba(255,255,255,0.65);
+      font-size: 1.05rem;
+      max-width: 520px;
+      margin: 0 auto;
+      line-height: 1.65;
+    }
+
+    /* ── WAVE ── */
+    .wave {
+      background: var(--navy);
+      line-height: 0;
+    }
+
+    .wave svg {
+      display: block;
+      width: 100%;
+    }
+
+    /* ── MAIN ── */
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 56px 2rem 80px;
+    }
+
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 8px;
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 32px;
+    }
+
+    /* ── GRID ── */
+    .tool-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 24px;
+      margin-bottom: 64px;
+    }
+
+    .tool-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      box-shadow: var(--card-shadow);
+      transition: box-shadow 0.2s, transform 0.2s, border-color 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .tool-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--amber);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.25s;
+    }
+
+    .tool-card:hover {
+      box-shadow: var(--card-shadow-hover);
+      transform: translateY(-3px);
+      border-color: rgba(232,144,58,0.3);
+    }
+
+    .tool-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .card-icon {
+      font-size: 1.8rem;
+      line-height: 1;
+    }
+
+    .card-category {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--amber);
+    }
+
+    .card-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--navy);
+      line-height: 1.3;
+    }
+
+    .card-desc {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      flex: 1;
+    }
+
+    .card-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--amber);
+      margin-top: 4px;
+    }
+
+    .card-cta svg {
+      transition: transform 0.2s;
+    }
+
+    .tool-card:hover .card-cta svg {
+      transform: translateX(4px);
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 10px;
+      background: rgba(34,197,94,0.1);
+      color: #16a34a;
+      border: 1px solid rgba(34,197,94,0.25);
+    }
+
+    /* ── HOW IT WORKS ── */
+    .how-section {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 40px;
+      margin-bottom: 64px;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 32px;
+      margin-top: 28px;
+    }
+
+    .step {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .step-num {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--navy);
+      color: var(--white);
+      font-size: 0.85rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .step-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--navy);
+    }
+
+    .step-desc {
+      font-size: 0.84rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--navy);
+      text-align: center;
+      padding: 28px;
+      color: rgba(255,255,255,0.45);
+      font-size: 0.82rem;
+    }
+
+    footer a {
+      color: var(--amber);
+      text-decoration: none;
+    }
+
+    @media (max-width: 640px) {
+      .hero { padding: 40px 1.5rem 56px; }
+      main { padding: 40px 1.5rem 60px; }
+      .how-section { padding: 28px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <a class="logo" href="#">
+        <div class="logo-dot"></div>
+        <span class="logo-text">Amber Bogie Marketing</span>
+      </a>
+      <span class="header-badge">AI Toolkit</span>
+    </div>
+  </header>
+
+  <div class="hero">
+    <div class="hero-eyebrow">B2B &amp; SaaS Marketing</div>
+    <h1>Your <span>AI Marketing</span><br/>Concierge</h1>
+    <p>Purpose-built AI tools for modern B2B marketing teams — from content to competitive intel, campaigns to personas.</p>
+  </div>
+
+  <div class="wave">
+    <svg viewBox="0 0 1440 40" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <path d="M0,40 C360,0 1080,0 1440,40 L1440,0 L0,0 Z" fill="#1B2A4A"/>
+    </svg>
+  </div>
+
+  <main>
+
+    <div class="section-label">AI Tools</div>
+    <div class="section-title">Choose a tool to get started</div>
+
+    <div class="tool-grid">
+
+      <a class="tool-card" href="content/index.html">
+        <div class="card-icon">✍️</div>
+        <div class="card-category">Content</div>
+        <div class="card-title">Content &amp; Copywriting</div>
+        <div class="card-desc">Generate on-brand B2B content — blog posts, emails, social copy, and ad creative — in minutes.</div>
+        <div class="card-cta">
+          Open tool
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M7.5 3.5L11 7l-3.5 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <span class="badge">Live</span>
+      </a>
+
+      <a class="tool-card" href="competitive/index.html">
+        <div class="card-icon">⚔️</div>
+        <div class="card-category">Intelligence</div>
+        <div class="card-title">Competitive Intelligence</div>
+        <div class="card-desc">Analyze competitors, surface positioning gaps, and generate sales-ready battlecards fast.</div>
+        <div class="card-cta">
+          Open tool
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M7.5 3.5L11 7l-3.5 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <span class="badge">Live</span>
+      </a>
+
+      <a class="tool-card" href="campaign/index.html">
+        <div class="card-icon">📣</div>
+        <div class="card-category">Demand Gen</div>
+        <div class="card-title">Campaign Planning</div>
+        <div class="card-desc">Build integrated campaign briefs, messaging frameworks, and launch calendars from a single prompt.</div>
+        <div class="card-cta">
+          Open tool
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M7.5 3.5L11 7l-3.5 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <span class="badge">Live</span>
+      </a>
+
+      <a class="tool-card" href="persona/index.html">
+        <div class="card-icon">🧑‍💼</div>
+        <div class="card-category">Messaging</div>
+        <div class="card-title">Persona &amp; Messaging</div>
+        <div class="card-desc">Define buyer personas and build messaging frameworks that resonate — tested against your real buyers.</div>
+        <div class="card-cta">
+          Open tool
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M7.5 3.5L11 7l-3.5 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <span class="badge">Live</span>
+      </a>
+
+      <a class="tool-card" href="persona-council/index.html">
+        <div class="card-icon">🎭</div>
+        <div class="card-category">Messaging</div>
+        <div class="card-title">Persona Council</div>
+        <div class="card-desc">Convene your three buyer personas as a live critique panel to stress-test any asset before it goes to market.</div>
+        <div class="card-cta">
+          Open tool
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M7.5 3.5L11 7l-3.5 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <span class="badge">Live</span>
+      </a>
+
+    </div>
+
+    <div class="how-section">
+      <div class="section-label">How it works</div>
+      <div class="section-title" style="margin-bottom:0">Three steps to better marketing output</div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-title">Pick a tool</div>
+          <div class="step-desc">Select the tool that matches your task — content, intel, campaigns, or personas.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-title">Copy the prompt</div>
+          <div class="step-desc">Each tool includes a ready-to-use prompt. Fill in the brackets with your details and copy it.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-title">Paste into Claude</div>
+          <div class="step-desc">Open <a href="https://claude.ai" target="_blank" style="color:var(--amber);">claude.ai</a>, paste the prompt, and get a polished first draft in seconds.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-title">Refine &amp; publish</div>
+          <div class="step-desc">Review the output, make it yours, and ship. Use follow-up prompts to iterate further.</div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer>
+    Built by <a href="https://www.amberbogie.com" target="_blank">Amber Bogie</a> · AI Marketing Toolkit
+  </footer>
+
+</body>
+</html>

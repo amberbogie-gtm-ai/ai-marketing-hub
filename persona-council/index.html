@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Persona Council · AI Marketing Hub</title>
+  <style>
+    :root {
+      --navy: #1B2A4A; --navy-light: #243660; --amber: #E8903A; --amber-light: #F5A84E;
+      --bg: #F4F6FB; --white: #ffffff; --text: #1A1A2A; --text-muted: #6B7280;
+      --border: #E2E8F0; --radius: 12px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+    /* Header */
+    header { background: var(--navy); padding: 0 2rem; }
+    .header-inner { max-width: 1000px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 64px; }
+    .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .logo-dot { width: 10px; height: 10px; background: var(--amber); border-radius: 50%; }
+    .logo-text { color: #fff; font-size: 0.95rem; font-weight: 600; }
+    .back-link { color: rgba(255,255,255,0.6); font-size: 0.82rem; text-decoration: none; }
+    .back-link:hover { color: var(--amber); }
+
+    /* Hero */
+    .hero { background: var(--navy); padding: 56px 2rem 72px; text-align: center; }
+    .hero-inner { max-width: 700px; margin: 0 auto; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 8px; background: rgba(232,144,58,0.12); color: var(--amber); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 5px 14px; border-radius: 20px; margin-bottom: 20px; }
+    .hero h1 { color: #fff; font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 700; line-height: 1.15; margin-bottom: 16px; }
+    .hero h1 em { color: var(--amber); font-style: normal; }
+    .hero p { color: rgba(255,255,255,0.62); font-size: 1rem; line-height: 1.7; }
+    .hero-meta { display: flex; justify-content: center; gap: 32px; margin-top: 28px; }
+    .hero-stat { text-align: center; }
+    .hero-stat-num { color: var(--amber); font-size: 1.5rem; font-weight: 700; }
+    .hero-stat-label { color: rgba(255,255,255,0.5); font-size: 0.75rem; margin-top: 2px; }
+
+    /* Wave */
+    .wave { background: var(--navy); line-height: 0; }
+    .wave svg { display: block; width: 100%; }
+
+    /* Nav */
+    .sticky-nav { background: var(--white); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 10; }
+    .nav-inner { max-width: 1000px; margin: 0 auto; padding: 0 2rem; display: flex; gap: 0; overflow-x: auto; }
+    .nav-inner a { color: var(--text-muted); font-size: 0.82rem; font-weight: 500; padding: 14px 16px; text-decoration: none; white-space: nowrap; border-bottom: 2px solid transparent; }
+    .nav-inner a:hover { color: var(--navy); border-bottom-color: var(--amber); }
+
+    /* Main */
+    main { max-width: 1000px; margin: 0 auto; padding: 56px 2rem 80px; }
+
+    /* Section */
+    .section { margin-bottom: 56px; }
+    .section-eyebrow { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--amber); margin-bottom: 8px; }
+    .section-title { font-size: 1.4rem; font-weight: 700; color: var(--navy); margin-bottom: 20px; }
+
+    /* Card */
+    .card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px; box-shadow: 0 2px 12px rgba(27,42,74,0.06); }
+    .card + .card { margin-top: 20px; }
+    .card-heading { font-size: 1rem; font-weight: 700; color: var(--navy); margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+
+    /* Feature grid */
+    .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
+    .feature { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px; box-shadow: 0 2px 8px rgba(27,42,74,0.05); }
+    .feature-icon { font-size: 1.4rem; margin-bottom: 10px; }
+    .feature-title { font-size: 0.9rem; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+    .feature-desc { font-size: 0.82rem; color: var(--text-muted); line-height: 1.55; }
+
+    /* Persona cards */
+    .persona-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; }
+    .persona-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; box-shadow: 0 2px 12px rgba(27,42,74,0.06); position: relative; overflow: hidden; }
+    .persona-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; }
+    .persona-card.buyer-1::before { background: #4F6EF7; }
+    .persona-card.buyer-2::before { background: #E8903A; }
+    .persona-card.buyer-3::before { background: #10B981; }
+    .persona-avatar { width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; font-weight: 800; color: #fff; margin-bottom: 14px; }
+    .buyer-1 .persona-avatar { background: #4F6EF7; }
+    .buyer-2 .persona-avatar { background: #E8903A; }
+    .buyer-3 .persona-avatar { background: #10B981; }
+    .persona-name { font-size: 1.1rem; font-weight: 700; color: var(--navy); margin-bottom: 2px; }
+    .persona-title { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 14px; font-weight: 500; }
+    .persona-bio { font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 16px; }
+    .cares-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; }
+    .cares-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .cares-tag { font-size: 0.72rem; padding: 4px 10px; border-radius: 20px; font-weight: 500; }
+    .buyer-1 .cares-tag { background: rgba(79,110,247,0.08); color: #4F6EF7; border: 1px solid rgba(79,110,247,0.2); }
+    .buyer-2 .cares-tag { background: rgba(232,144,58,0.08); color: var(--amber); border: 1px solid rgba(232,144,58,0.2); }
+    .buyer-3 .cares-tag { background: rgba(16,185,129,0.08); color: #10B981; border: 1px solid rgba(16,185,129,0.2); }
+
+    /* Steps */
+    .steps { display: flex; flex-direction: column; gap: 20px; }
+    .step { display: flex; gap: 16px; }
+    .step-num { min-width: 32px; height: 32px; border-radius: 50%; background: var(--navy); color: #fff; font-size: 0.82rem; font-weight: 700; display: flex; align-items: center; justify-content: center; margin-top: 2px; }
+    .step-body { flex: 1; }
+    .step-title { font-size: 0.95rem; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+    .step-desc { font-size: 0.87rem; color: var(--text-muted); line-height: 1.6; }
+    .example-prompts { margin-top: 12px; display: flex; flex-direction: column; gap: 6px; }
+    .example-prompt { background: var(--bg); border-left: 3px solid var(--amber); padding: 8px 12px; font-size: 0.82rem; color: var(--navy); border-radius: 0 6px 6px 0; font-style: italic; }
+
+    /* Output types */
+    .output-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+    .output-card { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 20px; }
+    .output-icon { font-size: 1.3rem; margin-bottom: 8px; }
+    .output-title { font-size: 0.88rem; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+    .output-desc { font-size: 0.8rem; color: var(--text-muted); line-height: 1.5; }
+
+    /* Table */
+    .use-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+    .use-table th { text-align: left; padding: 10px 14px; background: var(--bg); color: var(--navy); font-weight: 700; font-size: 0.78rem; letter-spacing: 0.04em; text-transform: uppercase; border-bottom: 1px solid var(--border); }
+    .use-table td { padding: 12px 14px; border-bottom: 1px solid var(--border); color: var(--text-muted); vertical-align: top; line-height: 1.5; }
+    .use-table td:first-child { color: var(--navy); font-weight: 600; }
+    .use-table tr:last-child td { border-bottom: none; }
+
+    /* Prompt box */
+    .prompt-box { position: relative; }
+    .prompt-label { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 10px; }
+    .prompt-text { background: #0F1623; color: #E2E8F0; font-family: 'Menlo', 'Monaco', 'Courier New', monospace; font-size: 0.8rem; line-height: 1.75; padding: 24px; border-radius: 10px; white-space: pre-wrap; word-break: break-word; border: 1px solid rgba(255,255,255,0.06); }
+    .ph { color: var(--amber-light); font-style: italic; }
+    .copy-btn { position: absolute; top: 38px; right: 12px; background: rgba(232,144,58,0.15); color: var(--amber); border: 1px solid rgba(232,144,58,0.3); border-radius: 8px; padding: 6px 14px; font-size: 0.78rem; font-weight: 600; cursor: pointer; transition: background 0.2s; }
+    .copy-btn:hover { background: rgba(232,144,58,0.3); }
+
+    /* Tips */
+    .tips-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+    .tip-card { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 20px; display: flex; gap: 12px; }
+    .tip-icon { font-size: 1.1rem; margin-top: 2px; }
+    .tip-body { font-size: 0.85rem; color: var(--text-muted); line-height: 1.55; }
+    .tip-body strong { color: var(--navy); display: block; margin-bottom: 4px; font-size: 0.88rem; }
+
+    /* CTA */
+    .cta-bar { background: var(--navy); border-radius: var(--radius); padding: 36px; text-align: center; }
+    .cta-bar h3 { color: #fff; font-size: 1.2rem; font-weight: 700; margin-bottom: 8px; }
+    .cta-bar p { color: rgba(255,255,255,0.55); font-size: 0.88rem; margin-bottom: 20px; }
+    .cta-btn { display: inline-block; background: var(--amber); color: #fff; font-weight: 700; font-size: 0.9rem; padding: 12px 28px; border-radius: 8px; text-decoration: none; transition: background 0.2s; }
+    .cta-btn:hover { background: var(--amber-light); }
+
+    footer { background: var(--navy); text-align: center; padding: 28px; color: rgba(255,255,255,0.4); font-size: 0.82rem; margin-top: 0; }
+    footer a { color: var(--amber); text-decoration: none; }
+
+    @media (max-width: 640px) { main { padding: 32px 1.25rem 60px; } .card { padding: 22px; } .hero-meta { gap: 20px; } }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <a class="logo" href="../index.html"><div class="logo-dot"></div><span class="logo-text">Amber Bogie Marketing</span></a>
+      <a class="back-link" href="../index.html">← Back to Hub</a>
+    </div>
+  </header>
+
+  <div class="hero">
+    <div class="hero-inner">
+      <div class="eyebrow">🧑‍💼 Claude Skill · Persona Council</div>
+      <h1>Your <em>Buyer Personas</em><br/>as a Live Critique Panel</h1>
+      <p>Convene your three primary buyers to stress-test any marketing or sales asset — before a real human ever reads it.</p>
+      <div class="hero-meta">
+        <div class="hero-stat"><div class="hero-stat-num">3</div><div class="hero-stat-label">Buyer personas</div></div>
+        <div class="hero-stat"><div class="hero-stat-num">Any</div><div class="hero-stat-label">Asset type</div></div>
+        <div class="hero-stat"><div class="hero-stat-num">Instant</div><div class="hero-stat-label">Feedback loop</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wave">
+    <svg viewBox="0 0 1440 40" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <path d="M0,40 C360,0 1080,0 1440,40 L1440,0 L0,0 Z" fill="#1B2A4A"/>
+    </svg>
+  </div>
+
+  <nav class="sticky-nav">
+    <div class="nav-inner">
+      <a href="#what">What it does</a>
+      <a href="#personas">The Personas</a>
+      <a href="#how">How to use it</a>
+      <a href="#outputs">Output types</a>
+      <a href="#when">When to use it</a>
+      <a href="#prompt">The Prompt</a>
+      <a href="#tips">Tips</a>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- WHAT IT DOES -->
+    <div class="section" id="what">
+      <div class="section-eyebrow">Overview</div>
+      <div class="section-title">What the Persona Council does</div>
+      <p style="font-size:0.95rem;color:var(--text-muted);line-height:1.75;max-width:720px;margin-bottom:28px;">The Persona Council assembles your three primary buyer personas as a live critique panel inside Claude. Hand it any marketing or sales asset — a one-pager, email, battlecard, landing page, deck, or even a single headline — and the council reads it from each buyer's perspective. You get three distinct reactions, verdicts, and specific suggested revisions. Not a blended average. Not generic feedback.</p>
+      <div class="feature-grid">
+        <div class="feature">
+          <div class="feature-icon">🎭</div>
+          <div class="feature-title">Three distinct voices</div>
+          <div class="feature-desc">Each persona brings different priorities, objections, and language. You hear what each buyer actually thinks.</div>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">⚡</div>
+          <div class="feature-title">Any asset, any stage</div>
+          <div class="feature-desc">Works on rough drafts and final versions alike. The earlier you run the council, the cheaper the edits.</div>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">🎯</div>
+          <div class="feature-title">Actionable output</div>
+          <div class="feature-desc">Each persona delivers a verdict, a confidence score, and specific line-level revisions — not vague opinions.</div>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">🔁</div>
+          <div class="feature-title">Iterative by design</div>
+          <div class="feature-desc">Revise based on feedback and re-run the council. Converge on messaging that works before it goes live.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- THE PERSONAS -->
+    <div class="section" id="personas">
+      <div class="section-eyebrow">The Council</div>
+      <div class="section-title">Who's on the council</div>
+      <p style="font-size:0.9rem;color:var(--text-muted);line-height:1.7;max-width:680px;margin-bottom:28px;">These are the three archetypal B2B buyers. Each has a distinct job, a different relationship with your product, and a different reason to say yes — or no. Customize their names and titles to match your client's real buyers.</p>
+      <div class="persona-grid">
+
+        <div class="persona-card buyer-1">
+          <div class="persona-avatar">E</div>
+          <div class="persona-name"><span class="ph">[Economic Buyer]</span></div>
+          <div class="persona-title"><span class="ph">e.g., VP of Marketing / CMO / CFO</span></div>
+          <div class="persona-bio">Owns the budget and the business outcome. Skeptical of hype, responsive to ROI and strategic fit. Signs the contract — but only if they can tie it to a number.</div>
+          <div class="cares-label">Cares most about</div>
+          <div class="cares-tags">
+            <span class="cares-tag">ROI &amp; payback period</span>
+            <span class="cares-tag">Strategic alignment</span>
+            <span class="cares-tag">Risk &amp; trust</span>
+            <span class="cares-tag">Competitive edge</span>
+          </div>
+        </div>
+
+        <div class="persona-card buyer-2">
+          <div class="persona-avatar">T</div>
+          <div class="persona-name"><span class="ph">[Technical Evaluator]</span></div>
+          <div class="persona-title"><span class="ph">e.g., VP of Engineering / IT Director / Security Lead</span></div>
+          <div class="persona-bio">Evaluates whether this actually works. Gets skeptical fast when messaging sounds like marketing rather than engineering. Wants proof, integration details, and a credible technical story.</div>
+          <div class="cares-label">Cares most about</div>
+          <div class="cares-tags">
+            <span class="cares-tag">Technical credibility</span>
+            <span class="cares-tag">Integration fit</span>
+            <span class="cares-tag">Security &amp; compliance</span>
+            <span class="cares-tag">Speed to value</span>
+          </div>
+        </div>
+
+        <div class="persona-card buyer-3">
+          <div class="persona-avatar">U</div>
+          <div class="persona-name"><span class="ph">[End User / Champion]</span></div>
+          <div class="persona-title"><span class="ph">e.g., Marketing Manager / Team Lead / Ops Director</span></div>
+          <div class="persona-bio">The day-to-day owner. Evaluating vendor fit, workflow impact, and whether their team will actually adopt this. The most skeptical and the hardest to impress — because they'll live with the consequences.</div>
+          <div class="cares-label">Cares most about</div>
+          <div class="cares-tags">
+            <span class="cares-tag">Ease of adoption</span>
+            <span class="cares-tag">Workflow fit</span>
+            <span class="cares-tag">Team buy-in</span>
+            <span class="cares-tag">Vendor reliability</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- HOW TO USE -->
+    <div class="section" id="how">
+      <div class="section-eyebrow">Usage</div>
+      <div class="section-title">How to use it — step by step</div>
+      <div class="card">
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-body">
+              <div class="step-title">Copy the prompt below and customize your personas</div>
+              <div class="step-desc">Replace the placeholder names and titles with your client's actual buyer personas. Save this as a reusable prompt for that client.</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-body">
+              <div class="step-title">Open Claude and paste the prompt</div>
+              <div class="step-desc">Paste the prompt into a new Claude conversation. This sets up the council. Then paste in the asset you want reviewed — inline, or described in plain language.</div>
+              <div class="example-prompts">
+                <div class="example-prompt">"Run this email through the persona council"</div>
+                <div class="example-prompt">"What would the Economic Buyer think of this one-pager?"</div>
+                <div class="example-prompt">"Stress-test this positioning statement with our three buyers"</div>
+                <div class="example-prompt">"Persona council: review this landing page copy before design handoff"</div>
+              </div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-body">
+              <div class="step-title">The council reviews the asset</div>
+              <div class="step-desc">Each persona reads the asset from their own lens. You get three distinct reactions — confidence score, top objections, and specific suggested edits.</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">4</div>
+            <div class="step-body">
+              <div class="step-title">Revise and re-run</div>
+              <div class="step-desc">Make edits based on the feedback that resonates, then ask the council to review the revised version. Iterate until the messaging holds up across all three buyers.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- OUTPUT TYPES -->
+    <div class="section" id="outputs">
+      <div class="section-eyebrow">Output types</div>
+      <div class="section-title">What the council produces</div>
+      <div class="output-grid">
+        <div class="output-card">
+          <div class="output-icon">📝</div>
+          <div class="output-title">Full council review</div>
+          <div class="output-desc">All three personas respond in sequence — verdict, confidence score, top objections, and line-level revisions.</div>
+        </div>
+        <div class="output-card">
+          <div class="output-icon">🎯</div>
+          <div class="output-title">Single-persona deep dive</div>
+          <div class="output-desc">Ask one persona to go deeper on a specific section, objection, or claim. Useful when one buyer is the primary blocker.</div>
+        </div>
+        <div class="output-card">
+          <div class="output-icon">🔄</div>
+          <div class="output-title">Revised draft</div>
+          <div class="output-desc">Ask the council to rewrite the asset incorporating their feedback. Use as a starting point for your next draft.</div>
+        </div>
+        <div class="output-card">
+          <div class="output-icon">📊</div>
+          <div class="output-title">Comparative scoring</div>
+          <div class="output-desc">Submit two versions and get a side-by-side verdict. Useful for A/B decisions on headlines, subject lines, or positioning frames.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WHEN TO USE IT -->
+    <div class="section" id="when">
+      <div class="section-eyebrow">When to use it</div>
+      <div class="section-title">The right moment for the council</div>
+      <div class="card" style="padding:0;overflow:hidden;">
+        <table class="use-table">
+          <thead>
+            <tr>
+              <th>Asset type</th>
+              <th>When to run it</th>
+              <th>What to listen for</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Positioning statement</td><td>Before any external use</td><td>Does it land differently for each buyer? Does the champion buy in?</td></tr>
+            <tr><td>Email sequence</td><td>Before sending to list</td><td>Does the subject line earn an open? Does the CTA make sense for each role?</td></tr>
+            <tr><td>One-pager / leave-behind</td><td>Before design handoff</td><td>Would they read past the headline? What's missing?</td></tr>
+            <tr><td>Battlecard</td><td>After draft, before rep use</td><td>Would the champion use this in a real deal? Does the technical buyer trust it?</td></tr>
+            <tr><td>Landing page copy</td><td>Before dev build</td><td>Does it earn a form fill? What would make each buyer leave?</td></tr>
+            <tr><td>Sales deck</td><td>Before any customer meeting</td><td>Which slides lose them? Which ones move the deal?</td></tr>
+            <tr><td>Announcement / PR</td><td>Before publication</td><td>Does it feel relevant to their world, or just to you?</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- THE PROMPT -->
+    <div class="section" id="prompt">
+      <div class="section-eyebrow">The Prompt</div>
+      <div class="section-title">Copy, customize, and save for each client</div>
+      <div class="card">
+        <p style="font-size:0.88rem;color:var(--text-muted);line-height:1.6;margin-bottom:20px;">Replace the <span style="color:var(--amber);font-style:italic;">[bracketed fields]</span> with your client's real persona details. Save one version per client. Then use it at the start of any Claude conversation where you want the council active.</p>
+        <div class="prompt-box">
+          <div class="prompt-label">Persona Council Prompt — customize &amp; copy</div>
+          <button class="copy-btn" onclick="copyPrompt()">Copy</button>
+          <div class="prompt-text" id="prompt">You are facilitating a Persona Council — a structured critique session where three distinct buyer personas review a marketing or sales asset from their own perspective.
+
+THE THREE PERSONAS:
+
+PERSONA 1 — THE ECONOMIC BUYER
+Name: <span class="ph">[e.g., "Maya" — VP of Marketing / CMO / CFO]</span>
+Background: <span class="ph">[2–3 sentences on who they are, what they own, and what they care about]</span>
+Top priorities: <span class="ph">[e.g., pipeline growth, board-level metrics, competitive positioning]</span>
+What makes them skeptical: <span class="ph">[e.g., vague ROI claims, missing proof points, overpromising]</span>
+
+PERSONA 2 — THE TECHNICAL EVALUATOR
+Name: <span class="ph">[e.g., "Marcus" — VP of Engineering / IT Director / Security Lead]</span>
+Background: <span class="ph">[2–3 sentences on who they are, what they own, and what they care about]</span>
+Top priorities: <span class="ph">[e.g., integration fit, security, scalability, vendor stability]</span>
+What makes them skeptical: <span class="ph">[e.g., marketing language with no technical substance, missing architecture details]</span>
+
+PERSONA 3 — THE END USER / CHAMPION
+Name: <span class="ph">[e.g., "Jordan" — Marketing Manager / Team Lead / Ops Director]</span>
+Background: <span class="ph">[2–3 sentences on who they are, what they own, and what they care about]</span>
+Top priorities: <span class="ph">[e.g., ease of adoption, team workflow, day-to-day usability]</span>
+What makes them skeptical: <span class="ph">[e.g., tools that create more work, poor onboarding, vendor over-promises]</span>
+
+HOW THE COUNCIL WORKS:
+When I share an asset, each persona reviews it in sequence and responds with:
+1. FIRST IMPRESSION — one sentence gut reaction
+2. CONFIDENCE SCORE — a rating from 1–10 on how well this asset works for them
+3. WHAT LANDS — 2 things that resonate
+4. WHAT FALLS FLAT — 2 specific objections or gaps
+5. SUGGESTED REVISION — one concrete edit they'd make to improve it
+
+After all three respond, provide a COUNCIL SUMMARY: the one change that would most improve this asset across all three buyers.
+
+Stay in character throughout. Disagreements between personas are valuable — don't smooth them over.
+
+Ready to begin. Please share the asset you'd like the council to review.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TIPS -->
+    <div class="section" id="tips">
+      <div class="section-eyebrow">Tips</div>
+      <div class="section-title">Getting the most out of the council</div>
+      <div class="tips-grid">
+        <div class="tip-card"><div class="tip-icon">🎯</div><div class="tip-body"><strong>Give context, not just content</strong>Tell the council where the asset lives in the buyer journey. "This is a first-touch email for the economic buyer" gives better feedback than a plain paste.</div></div>
+        <div class="tip-card"><div class="tip-icon">🔁</div><div class="tip-body"><strong>Run it early, not just at the end</strong>The council is most useful before you've committed — on a rough outline, a headline, or a positioning frame. Waiting until final draft means expensive revisions.</div></div>
+        <div class="tip-card"><div class="tip-icon">🔍</div><div class="tip-body"><strong>Ask follow-up questions</strong>"Maya, why exactly does that claim feel unsubstantiated?" gets sharper signal than accepting first-pass critique at face value. Push for specifics.</div></div>
+        <div class="tip-card"><div class="tip-icon">⚠️</div><div class="tip-body"><strong>Disagreements are the point</strong>When the economic buyer loves something the end user hates, that's not a bug — it reveals a deliberate choice you have to make about who you're writing for.</div></div>
+        <div class="tip-card"><div class="tip-icon">✏️</div><div class="tip-body"><strong>Use it to break internal ties</strong>When two stakeholders disagree on copy, run both versions through the council. Buyer perspective is a more credible tiebreaker than personal preference.</div></div>
+        <div class="tip-card"><div class="tip-icon">📋</div><div class="tip-body"><strong>You don't have to take every note</strong>The council reflects persona priorities, not absolute truth. If one persona pushes back on something you're deliberately writing for another, note it and move on.</div></div>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-bar">
+      <h3>Ready to stress-test your messaging?</h3>
+      <p>Copy the prompt above, customize your personas, and paste it into Claude to get started.</p>
+      <a class="cta-btn" href="https://claude.ai" target="_blank">Open Claude →</a>
+    </div>
+
+  </main>
+
+  <footer>
+    <a href="../index.html">← Back to AI Marketing Hub</a> &nbsp;·&nbsp; Built by <a href="https://www.amberbogie.com" target="_blank">Amber Bogie</a>
+  </footer>
+
+  <script>
+    function copyPrompt() {
+      const el = document.getElementById('prompt');
+      navigator.clipboard.writeText(el.innerText).then(() => {
+        const btn = document.querySelector('.copy-btn');
+        btn.textContent = 'Copied!';
+        setTimeout(() => btn.textContent = 'Copy', 2000);
+      });
+    }
+  </script>
+
+</body>
+</html>
