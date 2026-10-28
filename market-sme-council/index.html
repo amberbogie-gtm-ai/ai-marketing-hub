@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Market SME + Persona Council · AI Marketing Hub</title>
+  <style>
+    :root {
+      --navy: #1B2A4A; --navy-light: #243660; --amber: #E8903A; --amber-light: #F5A84E;
+      --bg: #F4F6FB; --white: #ffffff; --text: #1A1A2A; --text-muted: #6B7280;
+      --border: #E2E8F0; --radius: 12px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+    /* Header */
+    header { background: var(--navy); padding: 0 2rem; }
+    .header-inner { max-width: 1000px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 64px; }
+    .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .logo-dot { width: 10px; height: 10px; background: var(--amber); border-radius: 50%; }
+    .logo-text { color: #fff; font-size: 0.95rem; font-weight: 600; }
+    .back-link { color: rgba(255,255,255,0.6); font-size: 0.82rem; text-decoration: none; }
+    .back-link:hover { color: var(--amber); }
+
+    /* Hero */
+    .hero { background: var(--navy); padding: 56px 2rem 72px; text-align: center; }
+    .hero-inner { max-width: 700px; margin: 0 auto; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 8px; background: rgba(232,144,58,0.12); color: var(--amber); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 5px 14px; border-radius: 20px; margin-bottom: 20px; }
+    .hero h1 { color: #fff; font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 700; line-height: 1.15; margin-bottom: 16px; }
+    .hero h1 em { color: var(--amber); font-style: normal; }
+    .hero p { color: rgba(255,255,255,0.62); font-size: 1rem; line-height: 1.7; }
+    .hero-meta { display: flex; justify-content: center; gap: 32px; margin-top: 28px; }
+    .hero-stat { text-align: center; }
+    .hero-stat-num { color: var(--amber); font-size: 1.5rem; font-weight: 700; }
+    .hero-stat-label { color: rgba(255,255,255,0.5); font-size: 0.75rem; margin-top: 2px; }
+
+    /* Wave */
+    .wave { background: var(--navy); line-height: 0; }
+    .wave svg { display: block; width: 100%; }
+
+    /* Nav */
+    .sticky-nav { background: var(--white); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 10; }
+    .nav-inner { max-width: 1000px; margin: 0 auto; padding: 0 2rem; display: flex; gap: 0; overflow-x: auto; }
+    .nav-inner a { color: var(--text-muted); font-size: 0.82rem; font-weight: 500; padding: 14px 16px; text-decoration: none; white-space: nowrap; border-bottom: 2px solid transparent; }
+    .nav-inner a:hover { color: var(--navy); border-bottom-color: var(--amber); }
+
+    /* Main */
+    main { max-width: 1000px; margin: 0 auto; padding: 56px 2rem 80px; }
+
+    /* Section */
+    .section { margin-bottom: 56px; }
+    .section-eyebrow { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--amber); margin-bottom: 8px; }
+    .section-title { font-size: 1.4rem; font-weight: 700; color: var(--navy); margin-bottom: 20px; }
+
+    /* Card */
+    .card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px; box-shadow: 0 2px 12px rgba(27,42,74,0.06); }
+    .card + .card { margin-top: 20px; }
+    .card-heading { font-size: 1rem; font-weight: 700; color: var(--navy); margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+
+    /* Feature grid */
+    .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
+    .feature { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px; box-shadow: 0 2px 8px rgba(27,42,74,0.05); }
+    .feature-icon { font-size: 1.4rem; margin-bottom: 10px; }
+    .feature-title { font-size: 0.9rem; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+    .feature-desc { font-size: 0.82rem; color: var(--text-muted); line-height: 1.55; }
+
+    /* Persona cards */
+    .persona-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; }
+    .persona-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; box-shadow: 0 2px 12px rgba(27,42,74,0.06); position: relative; overflow: hidden; }
+    .persona-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; }
+    .persona-card.buyer-1::before { background: #4F6EF7; }
+    .persona-card.buyer-2::before { background: #E8903A; }
+    .persona-card.buyer-3::before { background: #10B981; }
+    .persona-avatar { width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; font-weight: 800; color: #fff; margin-bottom: 14px; }
+    .buyer-1 .persona-avatar { background: #4F6EF7; }
+    .buyer-2 .persona-avatar { background: #E8903A; }
+    .buyer-3 .persona-avatar { background: #10B981; }
+    .persona-name { font-size: 1.1rem; font-weight: 700; color: var(--navy); margin-bottom: 2px; }
+    .persona-title { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 14px; font-weight: 500; }
+    .persona-bio { font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 16px; }
+    .cares-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; }
+    .cares-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .cares-tag { font-size: 0.72rem; padding: 4px 10px; border-radius: 20px; font-weight: 500; }
+    .buyer-1 .cares-tag { background: rgba(79,110,247,0.08); color: #4F6EF7; border: 1px solid rgba(79,110,247,0.2); }
+    .buyer-2 .cares-tag { background: rgba(232,144,58,0.08); color: var(--amber); border: 1px solid rgba(232,144,58,0.2); }
+    .buyer-3 .cares-tag { background: rgba(16,185,129,0.08); color: #10B981; border: 1px solid rgba(16,185,129,0.2); }
+
+    /* Steps */
+    .steps { display: flex; flex-direction: column; gap: 20px; }
+    .step { display: flex; gap: 16px; }
+    .step-num { min-width: 32px; height: 32px; border-radius: 50%; background: var(--navy); color: #fff; font-size: 0.82rem; font-weight: 700; display: flex; align-items: center; justify-content: center; margin-top: 2px; }
+    .step-body { flex: 1; }
+    .step-title { font-size: 0.95rem; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+    .step-desc { font-size: 0.87rem; color: var(--text-muted); line-height: 1.6; }
+    .example-prompts { margin-top: 12px; display: flex; flex-direction: column; gap: 6px; }
+    .example-prompt { background: var(--bg); border-left: 3px solid var(--amber); padding: 8px 12px; font-size: 0.82rem; color: var(--navy); border-radius: 0 6px 6px 0; font-style: italic; }
+
+    /* Output types */
+    .output-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+    .output-card { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 20px; }
+    .output-icon { font-size: 1.3rem; margin-bottom: 8px; }
+    .output-title { font-size: 0.88rem; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+    .output-desc { font-size: 0.8rem; color: var(--text-muted); line-height: 1.5; }
+
+    /* Table */
+    .use-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+    .use-table th { text-align: left; padding: 10px 14px; background: var(--bg); color: var(--navy); font-weight: 700; font-size: 0.78rem; letter-spacing: 0.04em; text-transform: uppercase; border-bottom: 1px solid var(--border); }
+    .use-table td { padding: 12px 14px; border-bottom: 1px solid var(--border); color: var(--text-muted); vertical-align: top; line-height: 1.5; }
+    .use-table td:first-child { color: var(--navy); font-weight: 600; }
+    .use-table tr:last-child td { border-bottom: none; }
+
+    /* Prompt box */
+    .prompt-box { position: relative; }
+    .prompt-label { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 10px; }
+    .prompt-text { background: #0F1623; color: #E2E8F0; font-family: 'Menlo', 'Monaco', 'Courier New', monospace; font-size: 0.8rem; line-height: 1.75; padding: 24px; border-radius: 10px; white-space: pre-wrap; word-break: break-word; border: 1px solid rgba(255,255,255,0.06); }
+    .ph { color: var(--amber-light); font-style: italic; }
+    .copy-btn { position: absolute; top: 38px; right: 12px; background: rgba(232,144,58,0.15); color: var(--amber); border: 1px solid rgba(232,144,58,0.3); border-radius: 8px; padding: 6px 14px; font-size: 0.78rem; font-weight: 600; cursor: pointer; transition: background 0.2s; }
+    .copy-btn:hover { background: rgba(232,144,58,0.3); }
+
+    /* Tips */
+    .tips-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+    .tip-card { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 20px; display: flex; gap: 12px; }
+    .tip-icon { font-size: 1.1rem; margin-top: 2px; }
+    .tip-body { font-size: 0.85rem; color: var(--text-muted); line-height: 1.55; }
+    .tip-body strong { color: var(--navy); display: block; margin-bottom: 4px; font-size: 0.88rem; }
+
+    /* CTA */
+    .cta-bar { background: var(--navy); border-radius: var(--radius); padding: 36px; text-align: center; }
+    .cta-bar h3 { color: #fff; font-size: 1.2rem; font-weight: 700; margin-bottom: 8px; }
+    .cta-bar p { color: rgba(255,255,255,0.55); font-size: 0.88rem; margin-bottom: 20px; }
+    .cta-btn { display: inline-block; background: var(--amber); color: #fff; font-weight: 700; font-size: 0.9rem; padding: 12px 28px; border-radius: 8px; text-decoration: none; transition: background 0.2s; }
+    .cta-btn:hover { background: var(--amber-light); }
+
+    footer { background: var(--navy); text-align: center; padding: 28px; color: rgba(255,255,255,0.4); font-size: 0.82rem; margin-top: 0; }
+    footer a { color: var(--amber); text-decoration: none; }
+
+    @media (max-width: 640px) { main { padding: 32px 1.25rem 60px; } .card { padding: 22px; } .hero-meta { gap: 20px; } }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <a class="logo" href="../index.html"><div class="logo-dot"></div><span class="logo-text">Amber Bogie Marketing</span></a>
+      <a class="back-link" href="../index.html">← Back to Hub</a>
+    </div>
+  </header>
+
+  <div class="hero">
+    <div class="hero-inner">
+      <div class="eyebrow">Claude Skill · Market SME + Persona Council</div>
+      <h1>A <em>Market Expert</em> and Your<br/>Full Buying Committee</h1>
+      <p>Pressure-test any asset with a category expert, the whole buying committee and the channel partner who influences the deal. Each one reads through a region lens and a vertical lens.</p>
+      <div class="hero-meta">
+        <div class="hero-stat"><div class="hero-stat-num">1 + 6 + 1</div><div class="hero-stat-label">Expert, buyers, partner</div></div>
+        <div class="hero-stat"><div class="hero-stat-num">Region</div><div class="hero-stat-label">+ vertical lenses</div></div>
+        <div class="hero-stat"><div class="hero-stat-num">1 to 5</div><div class="hero-stat-label">Scorecard</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wave">
+    <svg viewBox="0 0 1440 40" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <path d="M0,40 C360,0 1080,0 1440,40 L1440,0 L0,0 Z" fill="#1B2A4A"/>
+    </svg>
+  </div>
+
+  <nav class="sticky-nav">
+    <div class="nav-inner">
+      <a href="#what">What it does</a>
+      <a href="#council">The Council</a>
+      <a href="#lenses">Lenses</a>
+      <a href="#build">Build it for a client</a>
+      <a href="#how">How to run it</a>
+      <a href="#outputs">Modes</a>
+      <a href="#prompt">The Prompt</a>
+    </div>
+  </nav>
+
+  <main>
+
+    <div class="section" id="what">
+      <div class="section-eyebrow">Overview</div>
+      <div class="section-title">What this council adds</div>
+      <p style="font-size:0.95rem;color:var(--text-muted);line-height:1.75;max-width:720px;margin-bottom:28px;">The original <a href="../persona-council/index.html" style="color:var(--amber);">Persona Council</a> gives you three buyer voices. This version is built for complex markets: a category expert who fact-checks your claims, a full buying committee of up to six roles, and the agency, SI or reseller who shapes the shortlist. Every reviewer can read the asset as a buyer in a specific region and vertical, so you see where the message travels and where it breaks.</p>
+      <div class="feature-grid">
+        <div class="feature"><div class="feature-icon">🧠</div><div class="feature-title">Market expert first</div><div class="feature-desc">Fact-checks claims, places the asset against competitors and rates expert credibility before any buyer weighs in.</div></div>
+        <div class="feature"><div class="feature-icon">👥</div><div class="feature-title">The whole committee</div><div class="feature-desc">Economic buyer, finance, champion, technical evaluator, sales and end user. The deal killers are in the room.</div></div>
+        <div class="feature"><div class="feature-icon">🤝</div><div class="feature-title">The channel view</div><div class="feature-desc">The partner who sees you as a potential partner, a competitor and a benchmark, all at once.</div></div>
+        <div class="feature"><div class="feature-icon">🌍</div><div class="feature-title">Region and vertical lenses</div><div class="feature-desc">One set of personas, read through any market or industry you choose per session.</div></div>
+      </div>
+    </div>
+
+    <div class="section" id="council">
+      <div class="section-eyebrow">The Council</div>
+      <div class="section-title">Who sits on it</div>
+      <div class="card" style="padding:0;overflow:hidden;">
+        <table class="use-table">
+          <thead><tr><th>Seat</th><th>Typical titles</th><th>Role in the deal</th></tr></thead>
+          <tbody>
+            <tr><td>Market expert</td><td>Category analyst, former agency or platform lead</td><td>Fact-checks, places the asset against competitors, rates expert credibility</td></tr>
+            <tr><td>Economic buyer</td><td>CEO, MD, Owner, GM</td><td>Final yes</td></tr>
+            <tr><td>Financial gatekeeper</td><td>CFO, Finance Director</td><td>TCO, payback, contract terms</td></tr>
+            <tr><td>Champion</td><td>Head of Digital, eCommerce, Marketing or Ops</td><td>Day-to-day owner and internal seller</td></tr>
+            <tr><td>Technical evaluator</td><td>IT Director, CTO, Security Lead</td><td>Often the deal killer</td></tr>
+            <tr><td>Revenue influencer</td><td>Sales Director, CRO</td><td>Can block on channel conflict</td></tr>
+            <tr><td>End user</td><td>Ops, Customer Service, practitioner</td><td>Adoption and workflow</td></tr>
+            <tr><td>Channel partner</td><td>Agency, SI or reseller MD</td><td>Shapes the shortlist; partner, competitor and benchmark</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="section" id="lenses">
+      <div class="section-eyebrow">Lenses</div>
+      <div class="section-title">One set of personas, many markets</div>
+      <div class="output-grid">
+        <div class="output-card"><div class="output-icon">🗺️</div><div class="output-title">Region lens</div><div class="output-desc">Buying norms, compliance expectations, common systems, currency and language variant by market.</div></div>
+        <div class="output-card"><div class="output-icon">🏭</div><div class="output-title">Vertical lens</div><div class="output-desc">The workflows, pain points and vocabulary of each priority industry.</div></div>
+        <div class="output-card"><div class="output-icon">🎚️</div><div class="output-title">Full or Core council</div><div class="output-desc">Run all eight seats, a faster core group, or named personas only.</div></div>
+      </div>
+    </div>
+
+    <div class="section" id="build">
+      <div class="section-eyebrow">Setup</div>
+      <div class="section-title">Build it for a client (30 to 60 minutes)</div>
+      <div class="card"><div class="steps">
+        <div class="step"><div class="step-num">1</div><div class="step-body"><div class="step-title">Gather inputs</div><div class="step-desc">Website, positioning docs, ICP, verticals, regions, competitors, the product's technical foundation, logos and case studies, and any buyer or win/loss notes.</div></div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-body"><div class="step-title">Write the client context block</div><div class="step-desc">Facts only. Flag proof gaps honestly and mark anything unconfirmed.</div></div></div>
+        <div class="step"><div class="step-num">3</div><div class="step-body"><div class="step-title">Define the market expert</div><div class="step-desc">What they know cold: the main competitors, the status quo alternative, the systems landscape by region, and industry sources.</div></div></div>
+        <div class="step"><div class="step-num">4</div><div class="step-body"><div class="step-title">Fill four to six buyer seats and the channel seat</div><div class="step-desc">For each: name, title, wants, skepticisms, kill trigger, and region and vertical lenses. Delete seats that don't apply.</div></div></div>
+        <div class="step"><div class="step-num">5</div><div class="step-body"><div class="step-title">Note how the personas were calibrated</div><div class="step-desc">Real deal data, the founding team's experience, or market research. This tells users how much weight to give the verdicts.</div></div></div>
+        <div class="step"><div class="step-num">6</div><div class="step-body"><div class="step-title">Test, then save</div><div class="step-desc">Run one live asset, check that each persona sounds distinct, then save the filled prompt as a Claude Skill or Project.</div></div></div>
+      </div></div>
+    </div>
+
+    <div class="section" id="how">
+      <div class="section-eyebrow">Usage</div>
+      <div class="section-title">How a session runs</div>
+      <div class="card"><div class="steps">
+        <div class="step"><div class="step-num">1</div><div class="step-body"><div class="step-title">Set up</div><div class="step-desc">Share the asset with its goal, region, vertical and which council.</div>
+          <div class="example-prompts">
+            <div class="example-prompt">"Core council, US, manufacturing: review this homepage hero."</div>
+            <div class="example-prompt">"Full council, all regions: score this press release."</div>
+            <div class="example-prompt">"Channel partner only: would you co-sell this offer?"</div>
+          </div></div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-body"><div class="step-title">Market expert check</div><div class="step-desc">Accuracy, competitive position, what an expert would challenge, and a credibility score.</div></div></div>
+        <div class="step"><div class="step-num">3</div><div class="step-body"><div class="step-title">Each persona reviews in character</div><div class="step-desc">First reaction, score from 1 to 5, what lands, what falls flat (quoting the line), the one edit they'd make, and whether they'd take the next step.</div></div></div>
+        <div class="step"><div class="step-num">4</div><div class="step-body"><div class="step-title">Scorecard and conclusions</div><div class="step-desc">Scores, where the council disagrees, proof gaps, the top three edits and validation questions for real buyers.</div></div></div>
+      </div></div>
+    </div>
+
+    <div class="section" id="outputs">
+      <div class="section-eyebrow">Modes</div>
+      <div class="section-title">What else it can do</div>
+      <div class="output-grid">
+        <div class="output-card"><div class="output-icon">🎯</div><div class="output-title">Single-persona deep dive</div><div class="output-desc">One persona goes deep on a claim, a section or an objection.</div></div>
+        <div class="output-card"><div class="output-icon">📊</div><div class="output-title">A/B comparison</div><div class="output-desc">Two versions scored side by side, with a winner per persona.</div></div>
+        <div class="output-card"><div class="output-icon">🧪</div><div class="output-title">Messaging lab</div><div class="output-desc">Testable message hypotheses per region and vertical.</div></div>
+        <div class="output-card"><div class="output-icon">🧱</div><div class="output-title">Objection map</div><div class="output-desc">Top objections by persona, region and vertical, with the proof needed to answer each.</div></div>
+        <div class="output-card"><div class="output-icon">📞</div><div class="output-title">Discovery call simulation</div><div class="output-desc">Role-play a call with one persona, then debrief.</div></div>
+        <div class="output-card"><div class="output-icon">⚔️</div><div class="output-title">Competitive pressure test</div><div class="output-desc">The expert and the partner pit your asset against a named competitor.</div></div>
+      </div>
+    </div>
+
+    <div class="section" id="prompt">
+      <div class="section-eyebrow">The Prompt</div>
+      <div class="section-title">Copy, fill in and save for each client</div>
+      <div class="card">
+        <p style="font-size:0.88rem;color:var(--text-muted);line-height:1.6;margin-bottom:20px;">Replace the <span style="color:var(--amber);font-style:italic;">[bracketed fields]</span> with your client's details, then paste it at the start of a Claude conversation or save it as a Skill.</p>
+        <div class="prompt-box">
+          <div class="prompt-label">Market SME + Persona Council Prompt · customize &amp; copy</div>
+          <button class="copy-btn" onclick="copyPrompt()">Copy</button>
+          <div class="prompt-text" id="prompt">ROLE
+
+You are facilitating the <span class="ph">[CLIENT]</span> Persona Council: one <span class="ph">[CATEGORY]</span> market expert, <span class="ph">[NUMBER]</span> buyer committee members at <span class="ph">[ICP DESCRIPTION]</span>, and one <span class="ph">[CHANNEL / PARTNER TYPE]</span>.
+
+Your job is to stress-test <span class="ph">[CLIENT]</span> positioning, messaging, content, PR, sales and campaign assets the way the real market will, so the team can fix problems before buyers ever see them. The council amplifies human judgment. It does not replace real buyer conversations, so treat every verdict as a hypothesis to validate.
+
+A. CLIENT CONTEXT (what the council knows)
+
+- Company: <span class="ph">[who they are, HQ, stage, funding, origin story]</span>
+- Thesis: <span class="ph">[the market gap or point of view]</span>
+- Product: <span class="ph">[what it does, technical foundation, key capabilities, integrations, AI claims, commercial model]</span>
+- Proof: <span class="ph">[logos, case studies, quantified results. Flag gaps honestly.]</span>
+- Priority verticals: <span class="ph">[list]</span>
+- Markets / regions: <span class="ph">[list, plus any first-entry city or state]</span>
+- How the personas were calibrated: <span class="ph">[real deal data / founding team&#x27;s prior experience / market research only]</span>
+
+B. MARKET EXPERT: <span class="ph">[NAME]</span>, <span class="ph">[CATEGORY]</span> MARKET EXPERT (advisor, not a buyer)
+
+<span class="ph">[Years of experience and background: analyst, operator, agency, buyer side]</span>
+
+Knows cold:
+- <span class="ph">[Primary platform or competitor]</span>: <span class="ph">[editions, strengths, weaknesses, buyer perceptions, how the client relates to it]</span>
+- <span class="ph">[Secondary competitor]</span>: <span class="ph">[same]</span>
+- The rest of the field: <span class="ph">[list]</span>
+- The number one competitor: the status quo. <span class="ph">[What buyers do today instead]</span>
+- Systems landscape by region: <span class="ph">[ERP, CRM or other integrations that make or break deals]</span>
+- Industry sources: <span class="ph">[analysts, trade press, associations]</span>
+
+The expert&#x27;s job in every review: fact-check market and technical claims, place the asset against competitors, flag anything a knowledgeable buyer or partner would challenge, and rate expert credibility. Verify fast-changing facts (features, pricing) with web search when available.
+
+C. BUYER COMMITTEE (use the slots that apply)
+
+For each persona:
+
+<span class="ph">[#]</span>. <span class="ph">[NAME]</span>, <span class="ph">[TITLE]</span> (<span class="ph">[ROLE IN THE DEAL]</span>)
+
+<span class="ph">[Two to three sentences: who they are, what they own, what&#x27;s shaped their view]</span>
+
+- Wants: <span class="ph">[ ]</span>
+- Skeptical of: <span class="ph">[ ]</span>
+- Kills the deal when: <span class="ph">[ ]</span>
+- Region lens: <span class="ph">[Region 1]</span>: <span class="ph">[ ]</span>. <span class="ph">[Region 2]</span>: <span class="ph">[ ]</span>. <span class="ph">[Region 3]</span>: <span class="ph">[ ]</span>.
+- Vertical lens: <span class="ph">[Vertical 1]</span>: <span class="ph">[ ]</span>. <span class="ph">[Vertical 2]</span>: <span class="ph">[ ]</span>. <span class="ph">[Vertical 3]</span>: <span class="ph">[ ]</span>.
+
+Role slots to choose from:
+| Slot | Typical titles | Role in the deal |
+|---|---|---|
+| Economic buyer | CEO, MD, Owner, GM | Final yes |
+| Financial gatekeeper | CFO, Finance Director | TCO, payback, contract |
+| Champion | Head of Digital / eCommerce / Marketing / Ops | Day-to-day owner, internal seller |
+| Technical evaluator | IT Director, CTO, Security Lead | Often the deal killer |
+| Revenue influencer | Sales Director, CRO | Can block on channel conflict |
+| End user | Ops, Customer Service, Practitioner | Adoption and workflow |
+
+D. CHANNEL / PARTNER: <span class="ph">[NAME]</span>, <span class="ph">[TITLE]</span> AT <span class="ph">[AGENCY / SI / RESELLER TYPE]</span>
+
+<span class="ph">[Who they are and how they make money]</span>
+
+They see <span class="ph">[CLIENT]</span> three ways:
+1. As a potential partner: <span class="ph">[ ]</span>
+2. As a competitor: <span class="ph">[ ]</span>
+3. As a benchmark: <span class="ph">[what they compare it to]</span>
+
+- Wants: <span class="ph">[ ]</span>
+- Skeptical of: <span class="ph">[ ]</span>
+- Kills the deal when: <span class="ph">[ ]</span>
+- Region lens: <span class="ph">[ ]</span>
+
+HOW TO RUN A SESSION
+
+Step 1. Set up. Confirm (or ask): the asset and its goal, region, vertical, funnel stage and channel, and which council (Full, Core <span class="ph">[list the core personas]</span>, or named personas). If told &quot;just run it,&quot; use the Core council across all regions and state the defaults.
+
+Step 2. Market expert check (first). Accuracy, competitive position, what an expert would challenge. Credibility score from 1 to 5.
+
+Step 3. Each persona reviews in character: first reaction (one sentence, in their voice), score from 1 to 5, what lands (up to two), what falls flat (up to two, quoting the line), region note where region changes the verdict, the one edit they&#x27;d make, and Next step? Yes, Maybe or No.
+
+Step 4. Scorecard table: Persona | Score | Next step | Biggest objection, plus the average.
+
+Step 5. Council summary and conclusions: three to five numbered conclusions leading with the verdict, where the council disagrees and the choice that forces, proof gaps, the top three edits in priority order, and validation questions for real buyers.
+
+RULES
+
+- Stay in character. Disagreement is signal.
+- Be specific. Quote the asset&#x27;s lines.
+- Never invent client facts, results or statistics. Write &quot;unknown, needs client input.&quot;
+- Match the language variant to the target region (US vs UK English) and flag mismatches.
+- Feedback by default. Rewrite only when asked.
+- Direct, practitioner voice. No fluff. No em dashes.
+- Chat scorecard by default. HTML scorecard on request.
+- Calibration: when real buyer feedback arrives, update the personas and list what changed.
+
+OTHER MODES
+
+Single-persona deep dive · A/B comparison · Messaging lab · Objection map · Discovery call simulation · Competitive pressure test
+
+---
+
+Ready. Share the asset, plus region, vertical and which council.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cta-bar">
+      <h3>Ready to put your messaging in front of the whole committee?</h3>
+      <p>Copy the prompt, fill in your client's council, and paste it into Claude.</p>
+      <a class="cta-btn" href="https://claude.ai" target="_blank">Open Claude →</a>
+    </div>
+
+  </main>
+
+  <footer>
+    <a href="../index.html">← Back to AI Marketing Hub</a> &nbsp;·&nbsp; Built by <a href="https://www.amberbogie.com" target="_blank">Amber Bogie</a>
+  </footer>
+
+  <script>
+    function copyPrompt() {
+      const el = document.getElementById('prompt');
+      const btn = document.querySelector('.copy-btn');
+      navigator.clipboard.writeText(el.innerText).then(() => {
+        btn.textContent = 'Copied!';
+        setTimeout(() => btn.textContent = 'Copy', 2000);
+      });
+    }
+  </script>
+
+</body>
+</html>
